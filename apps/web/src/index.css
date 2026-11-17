@@ -1867,6 +1867,13 @@ code {
 
 /* Chat markdown rendering */
 
+/* Assistant replies follow Settings -> Appearance -> Response font, independent
+   of the interface font used by the sidebar and controls. */
+.chat-markdown.chat-response {
+  font-family: var(--font-response, var(--font-sans));
+  font-size: var(--font-size-response, var(--text-sm));
+}
+
 .chat-markdown > :first-child {
   margin-top: 0;
 }

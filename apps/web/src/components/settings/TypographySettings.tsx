@@ -96,6 +96,36 @@ function InterfaceFontRow({ preview }: { preview?: ReactNode }) {
   );
 }
 
+function ResponseFontRow() {
+  const settings = useScopedSettings();
+  const updateSettings = useUpdateScopedSettings();
+  const defaults = useFontDefaultFamilies();
+  return (
+    <FontFamilySettingsRow
+      {...searchableSetting("response-font")}
+      description="Assistant replies in the chat. The sidebar keeps the interface font."
+      defaultFamily={defaults.interfaceFamily}
+      defaultValue={DEFAULT_UNIFIED_SETTINGS.fontFamilyResponse}
+      value={settings.fontFamilyResponse}
+      onValueChange={(fontFamilyResponse) => updateSettings({ fontFamilyResponse })}
+      onReset={() =>
+        updateSettings({
+          fontFamilyResponse: DEFAULT_UNIFIED_SETTINGS.fontFamilyResponse,
+          fontSizeResponse: DEFAULT_UNIFIED_SETTINGS.fontSizeResponse,
+        })
+      }
+      size={{
+        label: "Response font size",
+        min: MIN_PROMPT_FONT_SIZE,
+        max: MAX_PROMPT_FONT_SIZE,
+        value: settings.fontSizeResponse,
+        defaultValue: DEFAULT_UNIFIED_SETTINGS.fontSizeResponse,
+        onChange: (fontSizeResponse) => updateSettings({ fontSizeResponse }),
+      }}
+    />
+  );
+}
+
 function PromptFontRow() {
   const settings = useScopedSettings();
   const updateSettings = useUpdateScopedSettings();
@@ -268,6 +298,7 @@ function FontSettingsGroup() {
   return (
     <>
       <InterfaceFontRow />
+      <ResponseFontRow />
       <PromptFontRow />
       <CodeFontRow />
       <TerminalFontRow />
@@ -302,6 +333,7 @@ function SimpleFontRows() {
   return (
     <>
       <InterfaceFontRow preview={<PromptFontPreview />} />
+      <ResponseFontRow />
       <CodeFontRow
         title="Monospace font"
         description="Code blocks, diffs, file previews, and the terminal."

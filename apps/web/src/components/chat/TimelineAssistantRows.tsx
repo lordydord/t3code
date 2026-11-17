@@ -62,6 +62,7 @@ export function AssistantTimelineRow({ row }: { row: Extract<TimelineRow, { kind
             listRef={ctx.listRef}
           >
             <ChatMarkdown
+              className="chat-response"
               text={messageText}
               renderInsights
               cwd={ctx.markdownCwd}
@@ -128,6 +129,7 @@ export function SentMessageTimelineRow({
         listRef={ctx.listRef}
       >
         <ChatMarkdown
+          className="chat-response"
           text={row.text}
           cwd={ctx.markdownCwd}
           threadRef={ctx.threadRef ?? undefined}

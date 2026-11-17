@@ -62,8 +62,10 @@ export interface AppearanceFontPreferences {
   readonly sans: string;
   readonly code: string;
   readonly composer: string;
+  readonly response: string;
   readonly sizeInterface: number;
   readonly sizePrompt: number;
+  readonly sizeResponse: number;
   readonly sizeCode: number;
   readonly smoothing: boolean;
   readonly separate: boolean;
@@ -78,6 +80,8 @@ export function applyAppearanceFontVariables(
     ["--font-sans", preferences.sans, DEFAULT_SANS_FONT_STACK],
     ["--font-mono", preferences.code, DEFAULT_CODE_FONT_STACK],
     ["--font-composer", preferences.separate ? preferences.composer : "", "var(--font-sans)"],
+    // Assistant replies in the chat only; the sidebar and the rest of the UI keep --font-sans.
+    ["--font-response", preferences.response, "var(--font-sans)"],
   ];
   for (const [variable, custom, fallback] of families) {
     const list = cssFontFamilies(custom);
@@ -103,6 +107,15 @@ export function applyAppearanceFontVariables(
     "--font-size-prompt",
     preferences.separate ? `${clampPromptFontSize(preferences.sizePrompt)}px` : "var(--text-sm)",
   );
+  // The default size keeps replies on text-sm so they scale with the interface size as before.
+  if (preferences.sizeResponse === DEFAULT_PROMPT_FONT_SIZE) {
+    root.style.removeProperty("--font-size-response");
+  } else {
+    root.style.setProperty(
+      "--font-size-response",
+      `${clampPromptFontSize(preferences.sizeResponse)}px`,
+    );
+  }
   const code = clampCodeFontSize(preferences.sizeCode);
   root.style.setProperty("--font-size-code", `${code}px`);
   root.style.setProperty("--diffs-font-size", `${code}px`);

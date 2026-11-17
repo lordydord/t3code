@@ -103,6 +103,8 @@ function startClientAppearance(): void {
       previous?.fontFamilySans !== settings.fontFamilySans ||
       previous.fontFamilyCode !== settings.fontFamilyCode ||
       previous.fontFamilyComposer !== settings.fontFamilyComposer ||
+      previous.fontFamilyResponse !== settings.fontFamilyResponse ||
+      previous.fontSizeResponse !== settings.fontSizeResponse ||
       previous.fontSizeInterface !== settings.fontSizeInterface ||
       previous.fontSizePrompt !== settings.fontSizePrompt ||
       previous.fontSizeCode !== settings.fontSizeCode ||
@@ -113,6 +115,8 @@ function startClientAppearance(): void {
         sans: settings.fontFamilySans,
         code: settings.fontFamilyCode,
         composer: settings.fontFamilyComposer,
+        response: settings.fontFamilyResponse,
+        sizeResponse: settings.fontSizeResponse,
         sizeInterface: settings.fontSizeInterface,
         sizePrompt: settings.fontSizePrompt,
         sizeCode: settings.fontSizeCode,
